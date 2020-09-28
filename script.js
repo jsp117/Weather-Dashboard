@@ -14,8 +14,21 @@ function searchWeather(x) {
     // runs whenever call goes through
     }).then(function(response){
         console.log(response);
-        console.log(reponse.name)
-     
+        console.log(response.name)
+        $("#cityName").text("City: " + response.name);
+        var temp = $("<p>");
+        temp.text("Temperature: " + response.main.temp + " F");
+        $("#cityInfo").append(temp);
+        var humidity = $("<p>");
+        humidity.text("humidity: " + response.main.humidity + " %");
+        $("#cityInfo").append(humidity);
+        var wind = $("<p>");
+        wind.text("Temperature: " + response.wind.speed + " MPH");
+        $("#cityInfo").append(wind);
+        var uv = $("<p>");
+        uv.text("UV");
+        $("#cityInfo").append(uv);
+        
     })
   }
 
