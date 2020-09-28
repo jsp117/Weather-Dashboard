@@ -1,5 +1,5 @@
 
-
+var container = [];
 
 
 function searchWeather(x) {
@@ -29,6 +29,7 @@ function searchWeather(x) {
         uv.text("UV");
         $("#cityInfo").append(uv);
         
+        addCity(response.name);
     })
   }
 
@@ -42,8 +43,24 @@ function searchWeather(x) {
     searchWeather(input);
   });
 
-  function create(x){
+  function addCity(x){
       var newLi = $("<li>");
-      newLi.text(x);
+      // newLi.text(x);
       $("#cities").append(newLi);
+      var button = $("<button>");
+      button.text(x);
+      button.addClass("btn btn-secondary cityButton mb-2");
+      newLi.append(button);
+      container.push(x);
+      for(var i = 0; i < container.length; i++){
+      localStorage.setItem(i, container[i]);
+    }
   }
+
+  $(".cityButton").on("click", function(event){
+    event.preventDefault();
+    var btnVal = this.text;
+    console.log(btnVal);
+
+
+  });
