@@ -52,9 +52,11 @@ function searchWeather(x) {
       button.addClass("btn btn-secondary cityButton mb-2");
       newLi.append(button);
       container.push(x);
+      console.log(container);
       for(var i = 0; i < container.length; i++){
       localStorage.setItem(i, container[i]);
     }
+    localStorage.setItem("Number", container.length);
   }
 
   $(".cityButton").on("click", function(event){
@@ -62,5 +64,24 @@ function searchWeather(x) {
     var btnVal = this.text;
     console.log(btnVal);
 
-
   });
+
+  function pageOpen(){
+    var num = localStorage.getItem("Number");
+    for(var i = 0; i < num; i++){
+      container.push(localStorage.getItem(i));
+    }
+
+    for(var i = 0; i < container.length; i++){
+      var li = $("<li>");
+      // newLi.text(x);
+      $("#cities").append(li);
+      var ogButton = $("<button>");
+      ogButton.text(container[i]);
+      ogButton.addClass("btn btn-secondary cityButton mb-2");
+      li.append(ogButton);
+    }
+    console.log(container);
+  }
+
+  pageOpen();
