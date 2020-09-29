@@ -99,6 +99,7 @@ $(document).ready(function () {
       var temp = $("<p>");
       var humidity = $("<p>");
       var img = $("<img>");
+      console.log("icon link: " + response.list[11].weather[0].icon);
       img.attr("src", "https://openweathermap.org/img/wn/" + response.list[3].weather[0].icon + ".png");
       date.text(response.list[3].dt_txt);
       temp.text("Temp: " + response.list[3].main.temp_max + " F");
@@ -228,6 +229,7 @@ $(document).ready(function () {
     save = true;
     event.preventDefault();
     $("#cityInfo").empty();
+    $(".forecast").empty();
     var btnText = $(this).text();
     // console.log("btn text: " + btnText);
     search(btnText);
