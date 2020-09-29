@@ -257,15 +257,8 @@ $(document).ready(function () {
       ogButton.addClass("btn btn-secondary cityButton w-100 border-top border-dark");
       ogButton.attr("type", "button");
       $("#cities").append(ogButton);
-
       // li.append(ogButton);
-
-
     }
-
   }
-
   pageOpen();
-
-
 });
