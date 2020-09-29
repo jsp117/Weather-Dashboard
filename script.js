@@ -6,7 +6,7 @@ var add = true;
 var save = false;
 
 function search(x) {
-
+  $(".forecast").empty();
   $.ajax({
     type: "GET",
     url: "http://api.openweathermap.org/data/2.5/weather?q=" + x + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c&units=imperial",
@@ -20,6 +20,7 @@ function search(x) {
     }
     // runs whenever call goes through
   }).then(function (response) {
+    $(".forecast").attr("style", "display: inline-block");
     save = true;
     console.log(response);
     console.log(response.name)
@@ -73,8 +74,64 @@ function uvDisplay(x, y) {
   });
 }
 
-function fiveDay(name){
+function fiveDay(name) {
+  
+  $.ajax({
+    type: "GET",
+    url: "http://api.openweathermap.org/data/2.5/forecast?q=" + name + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c&units=imperial",
+    dataType: "json",
+  }).then(function (response) {
+    console.log("five day: ", response);
+    var date = $("<p>");
+    var temp = $("<p>");
+    var humidity = $("<p>");
+    date.text(response.list[3].dt_txt);
+    temp.text("Temp: " + response.list[3].main.temp_max + " F");
+    humidity.text("Humidity: " + response.list[3].main.humidity + " %");
+    $("#1").append(date);
+    $("#1").append(temp);
+    $("#1").append(humidity);
 
+    var date2 = $("<p>");
+    var temp2 = $("<p>");
+    var humidity2 = $("<p>");
+    date2.text(response.list[11].dt_txt);
+    temp2.text("Temp: " + response.list[11].main.temp_max + " F");
+    humidity2.text("Humidity: " + response.list[11].main.humidity + " %");
+    $("#2").append(date2);
+    $("#2").append(temp2);
+    $("#2").append(humidity2);
+
+    var date3 = $("<p>");
+    var temp3 = $("<p>");
+    var humidity3 = $("<p>");
+    date3.text(response.list[19].dt_txt);
+    temp3.text("Temp: " + response.list[19].main.temp_max + " F");
+    humidity3.text("Humidity: " + response.list[19].main.humidity + " %");
+    $("#3").append(date3);
+    $("#3").append(temp3);
+    $("#3").append(humidity3);
+
+    var date4 = $("<p>");
+    var temp4 = $("<p>");
+    var humidity4 = $("<p>");
+    date4.text(response.list[27].dt_txt);
+    temp4.text("Temp: " + response.list[27].main.temp_max + " F");
+    humidity4.text("Humidity: " + response.list[27].main.humidity + " %");
+    $("#4").append(date4);
+    $("#4").append(temp4);
+    $("#4").append(humidity4);
+
+    var date5 = $("<p>");
+    var temp5 = $("<p>");
+    var humidity5 = $("<p>");
+    date5.text(response.list[35].dt_txt);
+    temp5.text("Temp: " + response.list[35].main.temp_max + " F");
+    humidity5.text("Humidity: " + response.list[35].main.humidity + " %");
+    $("#5").append(date5);
+    $("#5").append(temp5);
+    $("#5").append(humidity5);
+  });
 }
 
 
@@ -91,6 +148,7 @@ function exist(val, toSave) {
 $("#search").on("click", function (event, x) {
   // clear previous info
   $("#cityInfo").empty();
+  $(".forecast").empty();
   event.preventDefault();
   var input = $("#city").val();
   console.log("input: " + input);
@@ -160,6 +218,7 @@ $("#cities").on("click", "button", function (event) {
 // }
 
 function pageOpen() {
+  $(".forecast").attr("style", "display: none;");
   var num = localStorage.getItem("Number");
   for (var i = 0; i < num; i++) {
     container.push(localStorage.getItem(i));
