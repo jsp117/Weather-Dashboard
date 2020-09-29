@@ -15,7 +15,7 @@ function search(x) {
     error: function (e) {
       save = false;
       alert("Error: City does not exist - or connection issues");
-      exist(x);
+      exist(x, save);
       return save;
     }
     // runs whenever call goes through
@@ -33,14 +33,53 @@ function search(x) {
     var wind = $("<p>");
     wind.text("Temperature: " + response.wind.speed + " MPH");
     $("#cityInfo").append(wind);
-    var uv = $("<p>");
-    uv.text("UV");
-    $("#cityInfo").append(uv);
-    return save;
+    var lat = response.coord.lat;
+    var long = response.coord.lon;
+    uvDisplay(lat, long);
+    fiveDay(response.name);
   });
 }
 
-function exist(val) {
+function uvDisplay(x, y) {
+  console.log("WORKING");
+  $.ajax({
+    type: "GET",
+    url: "http://api.openweathermap.org/data/2.5/uvi?lat=" + x + "&lon=" + y + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c",
+    dataType: "json",
+    // runs whenever call goes through
+  }).then(function (response) {
+    console.log(response);
+    var uvVal = parseFloat(response.value);
+    console.log("uv: " + uvVal);
+    var uv = $("<p>");
+    uv.attr("class", "p-1 col-lg-3");
+    uv.text("UV index: " + uvVal);
+    if (uvVal <= 2.99) {
+      uv.attr("style", "background-color: green;");
+    }
+    if (uvVal >= 3 && uvVal <= 5.99) {
+      uv.attr("style", "background-color: yellow;");
+    }
+    if (uvVal >= 6 && uvVal <= 7.99) {
+      uv.attr("style", "background-color: orange;");
+    }
+    if (uvVal >= 8 && uvVal <= 10.99) {
+      uv.attr("style", "background-color: red;");
+    }
+    if (uvVal >= 11) {
+      uv.attr("style", "background-color: purple;");
+    }
+    $("#cityInfo").append(uv);
+  });
+}
+
+function fiveDay(name){
+
+}
+
+
+
+function exist(val, toSave) {
   // remove item from array
   var popped = container.pop(val);
   console.log("popped value: " + popped);
@@ -73,9 +112,9 @@ $("#search").on("click", function (event, x) {
     container.push(input);
     console.log("new item added: " + container);
     search(input);
-    
-      addCity(input);
-    
+
+    addCity(input);
+
     $("#city").val("");
   }
 });
@@ -102,7 +141,7 @@ function addCity(x) {
 
 }
 
-// button first try
+// event handlers for created buttons
 $("#cities").on("click", "button", function (event) {
   $("#cityInfo").empty();
   console.log("hello");
