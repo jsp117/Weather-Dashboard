@@ -10,7 +10,7 @@ $(document).ready(function () {
     $(".forecast").empty();
     $.ajax({
       type: "GET",
-      url: "http://api.openweathermap.org/data/2.5/weather?q=" + x + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c&units=imperial",
+      url: "https://api.openweathermap.org/data/2.5/weather?q=" + x + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c&units=imperial",
       dataType: "json",
       // error handling
       error: function (e) {
@@ -58,7 +58,7 @@ $(document).ready(function () {
     // console.log("WORKING");
     $.ajax({
       type: "GET",
-      url: "http://api.openweathermap.org/data/2.5/uvi?lat=" + x + "&lon=" + y + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c",
+      url: "https://api.openweathermap.org/data/2.5/uvi?lat=" + x + "&lon=" + y + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c",
       dataType: "json",
       // runs whenever call goes through
     }).then(function (response) {
@@ -91,7 +91,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "GET",
-      url: "http://api.openweathermap.org/data/2.5/forecast?q=" + name + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c&units=imperial",
+      url: "https://api.openweathermap.org/data/2.5/forecast?q=" + name + "&appid=ebdcfef8b5f11a300f888ec06cffdf1c&units=imperial",
       dataType: "json",
     }).then(function (response) {
       // console.log("five day: ", response);
@@ -99,7 +99,7 @@ $(document).ready(function () {
       var temp = $("<p>");
       var humidity = $("<p>");
       var img = $("<img>");
-      img.attr("src", "http://openweathermap.org/img/wn/" + response.list[3].weather[0].icon + ".png");
+      img.attr("src", "https://openweathermap.org/img/wn/" + response.list[3].weather[0].icon + ".png");
       date.text(response.list[3].dt_txt);
       temp.text("Temp: " + response.list[3].main.temp_max + " F");
       humidity.text("Humidity: " + response.list[3].main.humidity + " %");
@@ -112,7 +112,7 @@ $(document).ready(function () {
       var temp2 = $("<p>");
       var humidity2 = $("<p>");
       var img2 = $("<img>");
-      img2.attr("src", "http://openweathermap.org/img/wn/" + response.list[11].weather[0].icon + ".png");
+      img2.attr("src", "https://openweathermap.org/img/wn/" + response.list[11].weather[0].icon + ".png");
       date2.text(response.list[11].dt_txt);
       temp2.text("Temp: " + response.list[11].main.temp_max + " F");
       humidity2.text("Humidity: " + response.list[11].main.humidity + " %");
@@ -125,7 +125,7 @@ $(document).ready(function () {
       var temp3 = $("<p>");
       var humidity3 = $("<p>");
       var img3 = $("<img>");
-      img3.attr("src", "http://openweathermap.org/img/wn/" + response.list[19].weather[0].icon + ".png");
+      img3.attr("src", "https://openweathermap.org/img/wn/" + response.list[19].weather[0].icon + ".png");
       date3.text(response.list[19].dt_txt);
       temp3.text("Temp: " + response.list[19].main.temp_max + " F");
       humidity3.text("Humidity: " + response.list[19].main.humidity + " %");
@@ -138,7 +138,7 @@ $(document).ready(function () {
       var temp4 = $("<p>");
       var humidity4 = $("<p>");
       var img4 = $("<img>");
-      img4.attr("src", "http://openweathermap.org/img/wn/" + response.list[27].weather[0].icon + ".png");
+      img4.attr("src", "https://openweathermap.org/img/wn/" + response.list[27].weather[0].icon + ".png");
       date4.text(response.list[27].dt_txt);
       temp4.text("Temp: " + response.list[27].main.temp_max + " F");
       humidity4.text("Humidity: " + response.list[27].main.humidity + " %");
@@ -151,7 +151,7 @@ $(document).ready(function () {
       var temp5 = $("<p>");
       var humidity5 = $("<p>");
       var img5 = $("<img>");
-      img5.attr("src", "http://openweathermap.org/img/wn/" + response.list[35].weather[0].icon + ".png");
+      img5.attr("src", "https://openweathermap.org/img/wn/" + response.list[35].weather[0].icon + ".png");
       date5.text(response.list[35].dt_txt);
       temp5.text("Temp: " + response.list[35].main.temp_max + " F");
       humidity5.text("Humidity: " + response.list[35].main.humidity + " %");
