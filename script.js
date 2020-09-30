@@ -36,7 +36,7 @@ $(document).ready(function () {
       $("#cityName").append(icon);
       //$("#cityName").text(response.name + " " + currentDate[0]);
       var temp = $("<p>");
-      temp.text("Temperature: " + response.main.temp + " F");
+      temp.text("Temperature: " + response.main.temp + " °F");
       $("#cityInfo").append(temp);
       var humidity = $("<p>");
       humidity.text("Humidity: " + response.main.humidity + " %");
@@ -113,7 +113,7 @@ $(document).ready(function () {
       // new Date - turns into a date object
       var dateFormat = new Date(response.list[3].dt_txt).toLocaleString().split(",");
       date.text(dateFormat[0]);
-      temp.text("Temp: " + response.list[3].main.temp_max + " F");
+      temp.text("Temp: " + response.list[3].main.temp_max + " °F");
       humidity.text("Humidity: " + response.list[3].main.humidity + " %");
       $("#1").append(date);
       $("#1").append(img);
@@ -127,7 +127,7 @@ $(document).ready(function () {
       img2.attr("src", "https://openweathermap.org/img/wn/" + response.list[11].weather[0].icon + ".png");
       var dateFormat2 = new Date(response.list[11].dt_txt).toLocaleString().split(",");
       date2.text(dateFormat2[0]);
-      temp2.text("Temp: " + response.list[11].main.temp_max + " F");
+      temp2.text("Temp: " + response.list[11].main.temp_max + " °F");
       humidity2.text("Humidity: " + response.list[11].main.humidity + " %");
       $("#2").append(date2);
       $("#2").append(img2);
@@ -141,7 +141,7 @@ $(document).ready(function () {
       img3.attr("src", "https://openweathermap.org/img/wn/" + response.list[19].weather[0].icon + ".png");
       var dateFormat3 = new Date(response.list[19].dt_txt).toLocaleString().split(",");
       date3.text(dateFormat3[0]);
-      temp3.text("Temp: " + response.list[19].main.temp_max + " F");
+      temp3.text("Temp: " + response.list[19].main.temp_max + " °F");
       humidity3.text("Humidity: " + response.list[19].main.humidity + " %");
       $("#3").append(date3);
       $("#3").append(img3);
@@ -155,7 +155,7 @@ $(document).ready(function () {
       img4.attr("src", "https://openweathermap.org/img/wn/" + response.list[27].weather[0].icon + ".png");
       var dateFormat4 = new Date(response.list[27].dt_txt).toLocaleString().split(",");
       date4.text(dateFormat4[0]);
-      temp4.text("Temp: " + response.list[27].main.temp_max + " F");
+      temp4.text("Temp: " + response.list[27].main.temp_max + " °F");
       humidity4.text("Humidity: " + response.list[27].main.humidity + " %");
       $("#4").append(date4);
       $("#4").append(img4);
@@ -169,7 +169,7 @@ $(document).ready(function () {
       img5.attr("src", "https://openweathermap.org/img/wn/" + response.list[35].weather[0].icon + ".png");
       var dateFormat5 = new Date(response.list[35].dt_txt).toLocaleString().split(",");
       date5.text(dateFormat5[0]);
-      temp5.text("Temp: " + response.list[35].main.temp_max + " F");
+      temp5.text("Temp: " + response.list[35].main.temp_max + " °F");
       humidity5.text("Humidity: " + response.list[35].main.humidity + " %");
       $("#5").append(date5);
       $("#5").append(img5);
