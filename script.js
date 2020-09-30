@@ -27,7 +27,9 @@ $(document).ready(function () {
       // save = true;
       console.log(response);
       // console.log(response.name);
-      $("#cityName").text("City: " + response.name);
+      var currentDate = new Date().toLocaleString().split(",");
+      $("#cityName").text(`${response.name} ${currentDate[0]}`);
+      //$("#cityName").text(response.name + " " + currentDate[0]);
       var temp = $("<p>");
       temp.text("Temperature: " + response.main.temp + " F");
       $("#cityInfo").append(temp);
@@ -43,13 +45,13 @@ $(document).ready(function () {
       fiveDay(response.name);
       console.log("container: " + container);
       for (var i = 0; i < container.length; i++) {
-        if (x == container[i]) {
+        if (x.toLowerCase() == container[i].toLowerCase()) {
           console.log("already exists");
           save = false;
         }
       }
-      if (save===true) {
-        check(x);
+      if (save === true) {
+        addCity(x);
       }
     });
   }
@@ -101,7 +103,9 @@ $(document).ready(function () {
       var img = $("<img>");
       console.log("icon link: " + response.list[11].weather[0].icon);
       img.attr("src", "https://openweathermap.org/img/wn/" + response.list[3].weather[0].icon + ".png");
-      date.text(response.list[3].dt_txt);
+      // new Date - turns into a date object
+      var dateFormat = new Date(response.list[3].dt_txt).toLocaleString().split(",");
+      date.text(dateFormat[0]);
       temp.text("Temp: " + response.list[3].main.temp_max + " F");
       humidity.text("Humidity: " + response.list[3].main.humidity + " %");
       $("#1").append(date);
@@ -114,7 +118,8 @@ $(document).ready(function () {
       var humidity2 = $("<p>");
       var img2 = $("<img>");
       img2.attr("src", "https://openweathermap.org/img/wn/" + response.list[11].weather[0].icon + ".png");
-      date2.text(response.list[11].dt_txt);
+      var dateFormat2 = new Date(response.list[11].dt_txt).toLocaleString().split(",");
+      date2.text(dateFormat2[0]);
       temp2.text("Temp: " + response.list[11].main.temp_max + " F");
       humidity2.text("Humidity: " + response.list[11].main.humidity + " %");
       $("#2").append(date2);
@@ -127,7 +132,8 @@ $(document).ready(function () {
       var humidity3 = $("<p>");
       var img3 = $("<img>");
       img3.attr("src", "https://openweathermap.org/img/wn/" + response.list[19].weather[0].icon + ".png");
-      date3.text(response.list[19].dt_txt);
+      var dateFormat3 = new Date(response.list[19].dt_txt).toLocaleString().split(",");
+      date3.text(dateFormat3[0]);
       temp3.text("Temp: " + response.list[19].main.temp_max + " F");
       humidity3.text("Humidity: " + response.list[19].main.humidity + " %");
       $("#3").append(date3);
@@ -140,7 +146,8 @@ $(document).ready(function () {
       var humidity4 = $("<p>");
       var img4 = $("<img>");
       img4.attr("src", "https://openweathermap.org/img/wn/" + response.list[27].weather[0].icon + ".png");
-      date4.text(response.list[27].dt_txt);
+      var dateFormat4 = new Date(response.list[27].dt_txt).toLocaleString().split(",");
+      date4.text(dateFormat4[0]);
       temp4.text("Temp: " + response.list[27].main.temp_max + " F");
       humidity4.text("Humidity: " + response.list[27].main.humidity + " %");
       $("#4").append(date4);
@@ -153,7 +160,8 @@ $(document).ready(function () {
       var humidity5 = $("<p>");
       var img5 = $("<img>");
       img5.attr("src", "https://openweathermap.org/img/wn/" + response.list[35].weather[0].icon + ".png");
-      date5.text(response.list[35].dt_txt);
+      var dateFormat5 = new Date(response.list[35].dt_txt).toLocaleString().split(",");
+      date5.text(dateFormat5[0]);
       temp5.text("Temp: " + response.list[35].main.temp_max + " F");
       humidity5.text("Humidity: " + response.list[35].main.humidity + " %");
       $("#5").append(date5);
@@ -182,19 +190,19 @@ $(document).ready(function () {
     // console.log("input: " + input);
     // compare new input to container
     // error handling
-    if (input === "" || $.type(input) != "string") {
+    if (input === "" || $.type(input) !== "string") {
       event.preventDefault();
       alert("You must enter an existing city that you have not already entered!");
     } else {
-      for (var i = 0; i < container.length; i++) {
-        if (input === container[i]) {
-          // console.log("already exists");
-          alert("Please enter a different city");
-          $("#city").val("");
-          return;
-        }
-      }
-      
+      // for (var i = 0; i < container.length; i++) {
+      //   if (input === container[i]) {
+      //     // console.log("already exists");
+      //     alert("Please enter a different city");
+      //     $("#city").val("");
+      //     return;
+      //   }
+      // }
+
       // console.log("new item added: " + container);
       search(input);
 
@@ -202,11 +210,7 @@ $(document).ready(function () {
     }
   });
 
-  function check(x) {
-    if (save === true) {
-      addCity(x);
-    }
-  }
+  
 
   function addCity(x) {
     // console.log(container);
@@ -244,12 +248,15 @@ $(document).ready(function () {
   // }
 
   function pageOpen() {
+
     $(".forecast").attr("style", "display: none;");
     var num = localStorage.getItem("Number");
     for (var i = 0; i < num; i++) {
       container.push(localStorage.getItem(i));
     }
-
+    if (container.length > 0) {
+      search(container[0]);
+    }
     for (var i = 0; i < container.length; i++) {
       // var li = $("<li>");
       // $("#cities").append(li);
