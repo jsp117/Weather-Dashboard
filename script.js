@@ -28,7 +28,11 @@ $(document).ready(function () {
       console.log(response);
       // console.log(response.name);
       var currentDate = new Date().toLocaleString().split(",");
+      var icon = $("<img>");
+      // console.log(response.weather[0].icon);
+      icon.attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png");
       $("#cityName").text(`${response.name} ${currentDate[0]}`);
+      $("#cityName").append(icon);
       //$("#cityName").text(response.name + " " + currentDate[0]);
       var temp = $("<p>");
       temp.text("Temperature: " + response.main.temp + " F");
@@ -101,7 +105,7 @@ $(document).ready(function () {
       var temp = $("<p>");
       var humidity = $("<p>");
       var img = $("<img>");
-      console.log("icon link: " + response.list[11].weather[0].icon);
+      // console.log("icon link: " + response.list[11].weather[0].icon);
       img.attr("src", "https://openweathermap.org/img/wn/" + response.list[3].weather[0].icon + ".png");
       // new Date - turns into a date object
       var dateFormat = new Date(response.list[3].dt_txt).toLocaleString().split(",");
@@ -270,4 +274,5 @@ $(document).ready(function () {
     }
   }
   pageOpen();
+
 });
