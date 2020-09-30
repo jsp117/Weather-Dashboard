@@ -39,7 +39,7 @@ $(document).ready(function () {
       temp.text("Temperature: " + response.main.temp + " F");
       $("#cityInfo").append(temp);
       var humidity = $("<p>");
-      humidity.text("humidity: " + response.main.humidity + " %");
+      humidity.text("Humidity: " + response.main.humidity + " %");
       $("#cityInfo").append(humidity);
       var wind = $("<p>");
       wind.text("Temperature: " + response.wind.speed + " MPH");
@@ -74,8 +74,8 @@ $(document).ready(function () {
       // console.log(response);
       var uvVal = parseFloat(response.value);
       // console.log("uv: " + uvVal);
-      var uv = $("<p>");
-      uv.attr("class", "p-1 col-lg-3");
+      var uv = $("<span>");
+      uv.attr("class", "p-2 m-2");
       uv.text("UV index: " + uvVal);
       if (uvVal <= 2.99) {
         uv.attr("style", "background-color: green;");
@@ -202,7 +202,6 @@ $(document).ready(function () {
     } else {
       // console.log("new item added: " + container);
       search(input);
-
       $("#city").val("");
     }
   });
@@ -213,6 +212,9 @@ $(document).ready(function () {
     container.length = 0;
     localStorage.clear();
     $("#cities button").remove();
+    $(".forecast").attr("style", "display: none;");
+    $("#cityName").text("City: ");
+    $("#cityInfo").empty();
   });
 
   // event handlers for created buttons
