@@ -57,8 +57,8 @@ $(document).ready(function () {
           break;
         }
       }
-      if (save === true) {
-        addCity(x);
+      if (save) {
+        addCity(response.name);
       }
     });
   }
