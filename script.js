@@ -23,7 +23,6 @@ $(document).ready(function () {
       // new Date - date object - current day
       var currentDate = new Date().toLocaleString().split(",");
       var icon = $("<img>");
-      // console.log(response.weather[0].icon);
       icon.attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png");
       $("#cityName").text(`${response.name} ${currentDate[0]}`);
       $("#cityName").append(icon);
