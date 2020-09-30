@@ -15,17 +15,18 @@ $(document).ready(function () {
       // error handling
       error: function (e) {
         // save = false;
-        alert("Error: City does not exist - or connection issues");
+        $("#cityName").text("Error: City does not exist");
+        // alert("Error: City does not exist - or connection issues");
         // remove broken item from localstorage
-        localStorage.removeItem(x);
-        exist(x);
+        // localStorage.removeItem(x);
+        // exist(x);
         return;
       }
       // runs whenever call goes through
     }).then(function (response) {
       $(".forecast").attr("style", "display: inline-block");
       // save = true;
-      console.log(response);
+      // console.log(response);
       // console.log(response.name);
       var currentDate = new Date().toLocaleString().split(",");
       var icon = $("<img>");
@@ -47,11 +48,13 @@ $(document).ready(function () {
       var long = response.coord.lon;
       uvDisplay(lat, long);
       fiveDay(response.name);
-      console.log("container: " + container);
+      // console.log("container: " + container);
       for (var i = 0; i < container.length; i++) {
-        if (x.toLowerCase() == container[i].toLowerCase()) {
-          console.log("already exists");
+        // takes lowercase value without spaces
+        if (x.toString().toLowerCase().trim() == container[i].toString().toLowerCase().trim()) {
+          // console.log("already exists");
           save = false;
+          break;
         }
       }
       if (save === true) {
@@ -175,16 +178,13 @@ $(document).ready(function () {
     });
   }
 
-
   // removes bad input from container and removes button
-  function exist(val) {
-    // remove item from array
-    var popped = container.pop(val);
-    // remove last button created
-    // $("#cities button").last().remove();
-  }
+  // function exist(val) {
+  //   // remove item from array
+  //   var popped = container.pop(val);
+  // }
 
-  $("#search").on("click", function (event, x) {
+  $("#search").on("click", function (event) {
     save = true;
     // clear previous info
     $("#cityInfo").empty();
@@ -194,19 +194,12 @@ $(document).ready(function () {
     // console.log("input: " + input);
     // compare new input to container
     // error handling
-    if (input === "" || $.type(input) !== "string") {
+    if (input === "") {
       event.preventDefault();
-      alert("You must enter an existing city that you have not already entered!");
+      $(".forecast").attr("style", "display: none;");
+      $("#cityName").text("Please enter the name of a city");
+      // alert("You must enter an existing city that you have not already entered!");
     } else {
-      // for (var i = 0; i < container.length; i++) {
-      //   if (input === container[i]) {
-      //     // console.log("already exists");
-      //     alert("Please enter a different city");
-      //     $("#city").val("");
-      //     return;
-      //   }
-      // }
-
       // console.log("new item added: " + container);
       search(input);
 
@@ -214,7 +207,24 @@ $(document).ready(function () {
     }
   });
 
-  
+  // Removes all items from array and localstorage - clears buttons from page
+  $("#clear").on("click", function (event) {
+    event.preventDefault();
+    container.length = 0;
+    localStorage.clear();
+    $("#cities button").remove();
+  });
+
+  // event handlers for created buttons
+  $("#cities").on("click", "button", function (event) {
+    save = true;
+    event.preventDefault();
+    $("#cityInfo").empty();
+    $(".forecast").empty();
+    var btnText = $(this).text();
+    // console.log("btn text: " + btnText);
+    search(btnText);
+  });
 
   function addCity(x) {
     // console.log(container);
@@ -229,30 +239,9 @@ $(document).ready(function () {
       localStorage.setItem(i, container[i]);
     }
     localStorage.setItem("Number", container.length);
-
   }
 
-  // event handlers for created buttons
-  $("#cities").on("click", "button", function (event) {
-    save = true;
-    event.preventDefault();
-    $("#cityInfo").empty();
-    $(".forecast").empty();
-    var btnText = $(this).text();
-    // console.log("btn text: " + btnText);
-    search(btnText);
-
-  });
-
-  // button second try
-  // function grabText(event) {
-  //   // event.preventDefault();
-  //   var newTest = $(this).text();
-  //   console.log("new Test: " , newTest);
-  // }
-
   function pageOpen() {
-
     $(".forecast").attr("style", "display: none;");
     var num = localStorage.getItem("Number");
     for (var i = 0; i < num; i++) {
@@ -262,15 +251,11 @@ $(document).ready(function () {
       search(container[0]);
     }
     for (var i = 0; i < container.length; i++) {
-      // var li = $("<li>");
-      // $("#cities").append(li);
       var ogButton = $("<button>");
       ogButton.text(container[i]);
-      // took out mb-2
       ogButton.addClass("btn btn-secondary cityButton w-100 border-top border-dark");
       ogButton.attr("type", "button");
       $("#cities").append(ogButton);
-      // li.append(ogButton);
     }
   }
   pageOpen();
